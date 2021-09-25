@@ -7,7 +7,7 @@ declare_id!("5xJX49gW56EWkQJeBELE74TsQeNogtuR3DyHJGF69SoC");
 mod amplify {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>, image: String, categories: String, min_rating: String) -> ProgramResult {
+    pub fn initialize(ctx: Context<Initialize>, image: String, categories: String, min_rating: u32) -> ProgramResult {
         let request_account = &mut ctx.accounts.request;
         request_account.requester = *ctx.accounts.requester.unsigned_key();
         request_account.image = image;
@@ -31,5 +31,6 @@ pub struct RequestAccount {
     pub requester: Pubkey,
     pub image: String,
     pub categories: String,
-    pub min_rating: String,
+    pub min_rating: u32,
+    pub label: Option<String>,
 }

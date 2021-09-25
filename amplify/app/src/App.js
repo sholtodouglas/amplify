@@ -18,8 +18,8 @@ const programID = new PublicKey(idl.metadata.address);
 
 function App() {
   const [image, setImage] = useState('');
-  const [category, setCategory] = useState('');
-  const [min_rating, setMinRating] = useState('');
+  const [categories, setCategories] = useState('');
+  const [min_rating, setMinRating] = useState(0);
   const wallet = useWallet();
 
   async function getProvider() {
@@ -39,12 +39,13 @@ function App() {
     /* create the program interface combining the idl, program ID, and provider */
     const program = new Program(idl, programID, provider);
     const request = Keypair.generate();
+
     try {
       /* interact with the program via rpc */
       await program.rpc.initialize(
         image,
-        category,
-        min_rating,
+        categories,
+        Math.floor(parseFloat(min_rating) * 1e8) >>> 0,
         {
           accounts: {
             request: request.publicKey,
@@ -58,8 +59,7 @@ function App() {
       const account = await program.account.requestAccount.fetch(request.publicKey);
       console.log('account: ', account);
       setImage('');
-      setCategory('');
-      setMinRating('');
+      setCategories('');
     } catch (err) {
       console.log("Transaction error: ", err);
     }
@@ -75,21 +75,28 @@ function App() {
     return (
       <div className="App">
         <div>
+          <h4>Image String:</h4>
           <input
-            placeholder="Image string"
+            placeholder="e.g. temp.jpg"
             onChange={e => setImage(e.target.value)}
             value={image}
           />
+          <h4>Categories:</h4>
           <input
-            placeholder="Class string"
-            onChange={e => setCategory(e.target.value)}
-            value={category}
+            placeholder="e.g. dog,cat,bird"
+            onChange={e => setCategories(e.target.value)}
+            value={categories}
           />
+          <h4>Minimum Rating:</h4>
+          <output>{min_rating}</output><p/>
           <input
-            placeholder="Minimum rating"
+            type="range"
             onChange={e => setMinRating(e.target.value)}
             value={min_rating}
+            min="0"
+            max="9"
           />
+          <p/>
           <button onClick={initialize}>Send Request</button>
         </div>
       </div>

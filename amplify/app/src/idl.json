@@ -32,7 +32,7 @@
         },
         {
           "name": "minRating",
-          "type": "string"
+          "type": "u32"
         }
       ]
     }
@@ -57,7 +57,13 @@
           },
           {
             "name": "minRating",
-            "type": "string"
+            "type": "u32"
+          },
+          {
+            "name": "label",
+            "type": {
+              "option": "string"
+            }
           }
         ]
       }
