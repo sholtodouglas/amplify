@@ -6,12 +6,12 @@
       "name": "initialize",
       "accounts": [
         {
-          "name": "baseAccount",
+          "name": "request",
           "isMut": true,
           "isSigner": true
         },
         {
-          "name": "user",
+          "name": "requester",
           "isMut": true,
           "isSigner": true
         },
@@ -23,23 +23,15 @@
       ],
       "args": [
         {
-          "name": "data",
+          "name": "image",
           "type": "string"
-        }
-      ]
-    },
-    {
-      "name": "update",
-      "accounts": [
+        },
         {
-          "name": "baseAccount",
-          "isMut": true,
-          "isSigner": false
-        }
-      ],
-      "args": [
+          "name": "classes",
+          "type": "string"
+        },
         {
-          "name": "data",
+          "name": "minRating",
           "type": "string"
         }
       ]
@@ -47,19 +39,25 @@
   ],
   "accounts": [
     {
-      "name": "BaseAccount",
+      "name": "RequestAccount",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "data",
+            "name": "requester",
+            "type": "publicKey"
+          },
+          {
+            "name": "image",
             "type": "string"
           },
           {
-            "name": "dataList",
-            "type": {
-              "vec": "string"
-            }
+            "name": "classes",
+            "type": "string"
+          },
+          {
+            "name": "minRating",
+            "type": "string"
           }
         ]
       }

@@ -11,17 +11,16 @@ import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-r
 const wallets = [ getPhantomWallet() ]
 
 const { SystemProgram, Keypair } = web3;
-const baseAccount = Keypair.generate();
 const opts = {
   preflightCommitment: "processed"
 }
 const programID = new PublicKey(idl.metadata.address);
 
 function App() {
-  const [value, setValue] = useState('');
-  const [dataList, setDataList] = useState([]);
-  const [input, setInput] = useState('');
-  const wallet = useWallet()
+  const [image, setImage] = useState('');
+  const [category, setCategory] = useState('');
+  const [min_rating, setMinRating] = useState('');
+  const wallet = useWallet();
 
   async function getProvider() {
     /* create the provider and return it to the caller */
@@ -39,41 +38,31 @@ function App() {
     const provider = await getProvider();
     /* create the program interface combining the idl, program ID, and provider */
     const program = new Program(idl, programID, provider);
+    const request = Keypair.generate();
     try {
       /* interact with the program via rpc */
-      await program.rpc.initialize("Hello World", {
-        accounts: {
-          baseAccount: baseAccount.publicKey,
-          user: provider.wallet.publicKey,
-          systemProgram: SystemProgram.programId,
-        },
-        signers: [baseAccount]
-      });
+      await program.rpc.initialize(
+        image,
+        category,
+        min_rating,
+        {
+          accounts: {
+            request: request.publicKey,
+            requester: provider.wallet.publicKey,
+            systemProgram: SystemProgram.programId,
+          },
+          signers: [request]
+        }
+      );
 
-      const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
+      const account = await program.account.requestAccount.fetch(request.publicKey);
       console.log('account: ', account);
-      setValue(account.data.toString());
-      setDataList(account.dataList);
+      setImage('');
+      setCategory('');
+      setMinRating('');
     } catch (err) {
       console.log("Transaction error: ", err);
     }
-  }
-
-  async function update() {
-    if (!input) return
-    const provider = await getProvider();
-    const program = new Program(idl, programID, provider);
-    await program.rpc.update(input, {
-      accounts: {
-        baseAccount: baseAccount.publicKey
-      }
-    });
-
-    const account = await program.account.baseAccount.fetch(baseAccount.publicKey);
-    console.log('account: ', account);
-    setValue(account.data.toString());
-    setDataList(account.dataList);
-    setInput('');
   }
 
   if (!wallet.connected) {
@@ -86,28 +75,22 @@ function App() {
     return (
       <div className="App">
         <div>
-          {
-            !value && (<button onClick={initialize}>Initialize</button>)
-          }
-
-          {
-            value ? (
-              <div>
-                <h2>Current value: {value}</h2>
-                <input
-                  placeholder="Add new data"
-                  onChange={e => setInput(e.target.value)}
-                  value={input}
-                />
-                <button onClick={update}>Add data</button>
-              </div>
-            ) : (
-              <h3>Please Inialize.</h3>
-            )
-          }
-          {
-            dataList.map((d, i) => <h4 key={i}>{d}</h4>)
-          }
+          <input
+            placeholder="Image string"
+            onChange={e => setImage(e.target.value)}
+            value={image}
+          />
+          <input
+            placeholder="Class string"
+            onChange={e => setCategory(e.target.value)}
+            value={category}
+          />
+          <input
+            placeholder="Minimum rating"
+            onChange={e => setMinRating(e.target.value)}
+            value={min_rating}
+          />
+          <button onClick={initialize}>Send Request</button>
         </div>
       </div>
     );
