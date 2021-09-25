@@ -27,7 +27,7 @@
           "type": "string"
         },
         {
-          "name": "classes",
+          "name": "categories",
           "type": "string"
         },
         {
@@ -52,7 +52,7 @@
             "type": "string"
           },
           {
-            "name": "classes",
+            "name": "categories",
             "type": "string"
           },
           {
