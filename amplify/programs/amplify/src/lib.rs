@@ -11,7 +11,7 @@ mod amplify {
         let request_account = &mut ctx.accounts.request;
         request_account.requester = *ctx.accounts.requester.unsigned_key();
         request_account.image = image;
-        request_account.categories = categories.split(',');
+        request_account.categories = categories;
         request_account.min_rating = min_rating;
         Ok(())
     }
@@ -30,6 +30,6 @@ pub struct Initialize<'info> {
 pub struct RequestAccount {
     pub requester: Pubkey,
     pub image: String,
-    pub categories: Vec<String>,
+    pub categories: String,
     pub min_rating: String,
 }
