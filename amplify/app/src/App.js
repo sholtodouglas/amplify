@@ -14,7 +14,8 @@ const { SystemProgram, Keypair } = web3;
 const opts = {
   preflightCommitment: "processed"
 }
-const programID = new PublicKey(idl.metadata.address);
+// const programID = new PublicKey(idl.metadata.address);
+const programID = new PublicKey("7BFUYjtQA6wXd4WgGGFrDiZ8r2iXNSnDPKT8J2ZHs7Dw")
 
 function App() {
   const [image, setImage] = useState('');
@@ -32,6 +33,24 @@ function App() {
       connection, wallet, opts.preflightCommitment,
     );
     return provider;
+  }
+
+  async function register() {
+    const provider = await getProvider();
+    const program = new Program(idl, programID, provider);
+    const labeller = Keypair.generate();
+    try {
+      await program.rpc.register({accounts: {
+        labeller: labeller.publicKey,
+        beneficiary: provider.wallet.publicKey,
+        systemProgram: SystemProgram.programId,        
+      }, signers: [labeller]});
+
+      const account = await program.account.labellerAccount.fetch(labeller.publicKey);
+      console.log("account: ", account);
+    } catch (err) {
+      console.log("Transaction error: ", err);
+    }
   }
 
   async function initialize() {    
@@ -63,6 +82,41 @@ function App() {
     } catch (err) {
       console.log("Transaction error: ", err);
     }
+
+    const network = "http://127.0.0.1:8899";
+    const connection = new Connection(network, opts.preflightCommitment);
+    
+    const tokenAcctObjects = await connection.getParsedProgramAccounts(programID);
+
+    for (const acct of tokenAcctObjects) {
+        // console.log(acct);
+        try {
+          const account = await program.account.requestAccount.fetch(acct.pubkey);
+          console.log('log: ', account);
+
+        } catch(err) {
+          console.log(acct, err);
+        }
+        // console.log('log: ', account);
+        // const response = await connection.getParsedAccountInfo(acct.pubkey);
+        // console.log(response);
+    }
+  }
+
+  async function log_accounts() {
+    const provider = await getProvider();
+    const program = new Program(idl, programID, provider);
+    const network = "http://127.0.0.1:8899";
+    const connection = new Connection(network, opts.preflightCommitment);
+    
+    const tokenAcctObjects = await connection.getParsedProgramAccounts(programID);
+
+    for (const acct of tokenAcctObjects) {
+        const account = await program.account.requestAccount.fetch(acct.pubkey);
+        console.log('log: ', account);
+        // const response = await connection.getParsedAccountInfo(acct.pubkey);
+        // console.log(response);
+    }
   }
 
   if (!wallet.connected) {
@@ -91,6 +145,12 @@ function App() {
             value={min_rating}
           />
           <button onClick={initialize}>Send Request</button>
+        </div>
+        <div>
+          <button onClick={log_accounts}>Log accounts</button>
+        </div>
+        <div>
+          <button onClick={register}>Register for Labeller Account</button>
         </div>
       </div>
     );

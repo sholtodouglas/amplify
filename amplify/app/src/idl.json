@@ -27,7 +27,7 @@
           "type": "string"
         },
         {
-          "name": "classes",
+          "name": "categories",
           "type": "string"
         },
         {
@@ -35,6 +35,27 @@
           "type": "string"
         }
       ]
+    },
+    {
+      "name": "register",
+      "accounts": [
+        {
+          "name": "labeller",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "beneficiary",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -44,6 +65,10 @@
         "kind": "struct",
         "fields": [
           {
+            "name": "data",
+            "type": "string"
+          },
+          {
             "name": "requester",
             "type": "publicKey"
           },
@@ -52,7 +77,7 @@
             "type": "string"
           },
           {
-            "name": "classes",
+            "name": "categories",
             "type": "string"
           },
           {
@@ -61,9 +86,22 @@
           }
         ]
       }
+    },
+    {
+      "name": "LabellerAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "beneficiary",
+            "type": "publicKey"
+          },
+          {
+            "name": "rating",
+            "type": "string"
+          }
+        ]
+      }
     }
-  ],
-  "metadata": {
-    "address": "5xJX49gW56EWkQJeBELE74TsQeNogtuR3DyHJGF69SoC"
-  }
+  ]
 }
