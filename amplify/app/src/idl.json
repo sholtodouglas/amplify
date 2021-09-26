@@ -3,15 +3,15 @@
   "name": "amplify",
   "instructions": [
     {
-      "name": "create",
+      "name": "request",
       "accounts": [
         {
-          "name": "baseAccount",
+          "name": "request",
           "isMut": true,
           "isSigner": true
         },
         {
-          "name": "user",
+          "name": "requester",
           "isMut": true,
           "isSigner": true
         },
@@ -21,29 +21,70 @@
           "isSigner": false
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "image",
+          "type": "string"
+        },
+        {
+          "name": "categories",
+          "type": "string"
+        },
+        {
+          "name": "minRating",
+          "type": "u32"
+        }
+      ]
     },
     {
-      "name": "increment",
+      "name": "label",
       "accounts": [
         {
-          "name": "baseAccount",
+          "name": "request",
           "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
           "isSigner": false
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "label",
+          "type": "string"
+        }
+      ]
     }
   ],
   "accounts": [
     {
-      "name": "BaseAccount",
+      "name": "RequestAccount",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "count",
-            "type": "u64"
+            "name": "requester",
+            "type": "publicKey"
+          },
+          {
+            "name": "image",
+            "type": "string"
+          },
+          {
+            "name": "categories",
+            "type": "string"
+          },
+          {
+            "name": "minRating",
+            "type": "u32"
+          },
+          {
+            "name": "label",
+            "type": {
+              "option": "string"
+            }
           }
         ]
       }

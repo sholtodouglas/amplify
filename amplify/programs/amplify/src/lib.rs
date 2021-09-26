@@ -1,3 +1,4 @@
+/* programs/amplify/src/lib.rs */
 use anchor_lang::prelude::*;
 
 declare_id!("5xJX49gW56EWkQJeBELE74TsQeNogtuR3DyHJGF69SoC");
@@ -6,38 +7,43 @@ declare_id!("5xJX49gW56EWkQJeBELE74TsQeNogtuR3DyHJGF69SoC");
 mod amplify {
     use super::*;
 
-    pub fn create(ctx: Context<Create>) -> ProgramResult {
-        let base_account = &mut ctx.accounts.base_account;
-        base_account.count = 0;
+    pub fn request(ctx: Context<Request>, image: String, categories: String, min_rating: u32) -> ProgramResult {
+        let request_account = &mut ctx.accounts.request;
+        request_account.requester = *ctx.accounts.requester.unsigned_key();
+        request_account.image = image;
+        request_account.categories = categories;
+        request_account.min_rating = min_rating;
         Ok(())
     }
 
-    pub fn increment(ctx: Context<Increment>) -> ProgramResult {
-        let base_account = &mut ctx.accounts.base_account;
-        base_account.count += 1;
+    pub fn label(ctx: Context<Label>, label: String) -> ProgramResult {
+        let request_account = &mut ctx.accounts.request;
+        request_account.label = Some(label);
         Ok(())
     }
 }
 
-// Transaction instructions
 #[derive(Accounts)]
-pub struct Create<'info> {
-    #[account(init, payer = user, space = 16 + 16)]
-    pub base_account: Account<'info, BaseAccount>,
+pub struct Request<'info> {
+    #[account(init, payer = requester, space = 1000)]
+    pub request: Account<'info, RequestAccount>,
     #[account(mut)]
-    pub user: Signer<'info>,
-    pub system_program: Program <'info, System>,
+    pub requester: Signer<'info>,
+    pub system_program: Program<'info, System>,
 }
 
-// Transaction instructions
 #[derive(Accounts)]
-pub struct Increment<'info> {
+pub struct Label<'info> {
     #[account(mut)]
-    pub base_account: Account<'info, BaseAccount>,
+    pub request: Account<'info, RequestAccount>,
+    pub system_program: Program<'info, System>,
 }
 
-// An account that goes inside a transaction instruction
 #[account]
-pub struct BaseAccount {
-    pub count: u64,
+pub struct RequestAccount {
+    pub requester: Pubkey,
+    pub image: String,
+    pub categories: String,
+    pub min_rating: u32,
+    pub label: Option<String>,
 }
