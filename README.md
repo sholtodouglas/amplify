@@ -13,20 +13,56 @@ I think we'll need to change the name/address or something.
 solana program deploy dist/program/helloworld.so --url devnet
 '''
 
+# From scratch instructions
 
-Steps to run from git pull on 
-0. change wallet address path from jlc/sholto to yours (we should make this an env variable) 
-1. npm install
-2. anchor build
-3. Ensure you copy /src/idl/anchor.json to app/src/idl.json
-4. anchor deploy
-5. cd app
-6. npm install
+```bash
+solana-keygen new -o /home/<YOURPATH>/.config/solana/id.json # make yourself a personal wallet
+```
 
+Get https://phantom.app/
 
+Click add new, and add by pasting the private key which you can get by opening the above file (id.json) and pasting the contents.
 
-To debug address: 
+Now for the app. 
 
-solana address -k target/deploy/mysolanaapp-keypair.json - is this the same as your program one?
+```bash
+cd amplify
+npm install
+anchor build
+```
+
+```bash
+solana-keygen new -o target/deploy/amplify-keypair.json # If building from scratch we'll need to create a pubkey for the project- future lets save this?
+solana address -k target/deploy/amplify-keypair.json # Get the address of the keypair
+```
+Copy that address into '/programs/src/lib.rs'
+
+```rust
+declare_id!("<keypair_address_goes_here>");
+```
+
+In 'Anchor.toml', set the wallet path to your personal keypair to sign off on the program with and replace the aplify addr with the one you're using for the app created.
+
+```toml
+amplify = "<keypair_address_goes_here>"
+...
+wallet = "/home/sholtodouglas/.config/solana/id.json"
+...
+```
+
+Run a test validator (solana network) and deploy onto it
+```bash
+solana-test-validator
+anchor build
+anchor deploy
+```
+
+Copy the contents of '/target/idl/amplify.json' into '/app/src/idl.json'
+```bash
+cd app
+npm install
+npm start
+```
+
 
 
