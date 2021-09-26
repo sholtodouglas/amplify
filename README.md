@@ -13,7 +13,7 @@ I think we'll need to change the name/address or something.
 solana program deploy dist/program/helloworld.so --url devnet
 '''
 
-From scratch instructions
+# From scratch instructions
 
 ```bash
 solana-keygen new -o /home/<YOURPATH>/.config/solana/id.json # make yourself a personal wallet
