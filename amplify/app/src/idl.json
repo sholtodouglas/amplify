@@ -3,7 +3,7 @@
   "name": "amplify",
   "instructions": [
     {
-      "name": "initialize",
+      "name": "request",
       "accounts": [
         {
           "name": "request",
@@ -33,6 +33,27 @@
         {
           "name": "minRating",
           "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "accounts": [
+        {
+          "name": "request",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "label",
+          "type": "string"
         }
       ]
     }

@@ -7,7 +7,7 @@ declare_id!("5xJX49gW56EWkQJeBELE74TsQeNogtuR3DyHJGF69SoC");
 mod amplify {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>, image: String, categories: String, min_rating: u32) -> ProgramResult {
+    pub fn request(ctx: Context<Request>, image: String, categories: String, min_rating: u32) -> ProgramResult {
         let request_account = &mut ctx.accounts.request;
         request_account.requester = *ctx.accounts.requester.unsigned_key();
         request_account.image = image;
@@ -15,14 +15,27 @@ mod amplify {
         request_account.min_rating = min_rating;
         Ok(())
     }
+
+    pub fn label(ctx: Context<Label>, label: String) -> ProgramResult {
+        let request_account = &mut ctx.accounts.request;
+        request_account.label = Some(label);
+        Ok(())
+    }
 }
 
 #[derive(Accounts)]
-pub struct Initialize<'info> {
-    #[account(init, payer = requester, space = 64 + 64 + 64)]
+pub struct Request<'info> {
+    #[account(init, payer = requester, space = 1000)]
     pub request: Account<'info, RequestAccount>,
     #[account(mut)]
     pub requester: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct Label<'info> {
+    #[account(mut)]
+    pub request: Account<'info, RequestAccount>,
     pub system_program: Program<'info, System>,
 }
 
