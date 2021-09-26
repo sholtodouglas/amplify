@@ -1,7 +1,7 @@
 /* programs/amplify/src/lib.rs */
 use anchor_lang::prelude::*;
 
-declare_id!("5xJX49gW56EWkQJeBELE74TsQeNogtuR3DyHJGF69SoC");
+declare_id!("6tdSxHkjBn6Da6PuF8snm1jeVtyXk67G5SFqNCxxK1B7");
 
 #[program]
 mod amplify {

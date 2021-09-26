@@ -48,6 +48,24 @@ function Label(props) {
     }
   }
 
+
+  async function log_accounts() {
+    const provider = await getProvider();
+    const program = new Program(idl, programID, provider);
+    const network = "http://127.0.0.1:8899";
+    const connection = new Connection(network, opts.preflightCommitment);
+    
+    const tokenAcctObjects = await connection.getParsedProgramAccounts(programID);
+
+    for (const acct of tokenAcctObjects) {
+        const account = await program.account.requestAccount.fetch(acct.pubkey);
+        console.log('log: ', account);
+  }
+}
+
+
+
+
   const categories = props.lastRequest ? (
     props.lastRequest.account.categories.split(',').map(
       e => (
@@ -58,6 +76,7 @@ function Label(props) {
 
   return (
     <div className="Label">
+      <button onClick={log_accounts}>Log accounts</button>
       <h2>Label Data</h2>
       <img
         src={props.lastRequest ? props.lastRequest.account.image : ''}
@@ -73,3 +92,5 @@ function Label(props) {
 }
 
 export default Label;
+
+

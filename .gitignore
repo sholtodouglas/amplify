@@ -12,4 +12,5 @@
 
 /amplify/app/node_modules/*
 
-/amplify/app/package_lock.json
+/amplify/app/package-lock.json
+/amplify/package-lock.json
