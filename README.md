@@ -45,9 +45,6 @@ In 'Anchor.toml', set the wallet path to your personal keypair to sign off on th
 
 ```toml
 amplify = "<keypair_address_goes_here>"
-...
-wallet = "/home/sholtodouglas/.config/solana/id.json"
-...
 ```
 
 Run a test validator (solana network) and deploy onto it
