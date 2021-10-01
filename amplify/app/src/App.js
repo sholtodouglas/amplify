@@ -1,6 +1,7 @@
 import './App.css';
 import Request from './component/Request';
 import Label from './component/Label';
+import Display from './component/Display';
 
 import { useState } from 'react';
 
@@ -11,11 +12,10 @@ import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-r
 const wallets = [ getPhantomWallet() ]
 
 function App() {
-  const [isLabelling, setIsLabelling] = useState(false);
-  // TODO: This state can be removed when we query the blockchain for data
-  const [lastRequest, setLastRequest] = useState(undefined);
+  const [mode, setMode] = useState("");
 
   const wallet = useWallet();
+  const modes = ["request", "label", "display"];
 
   if (!wallet.connected) {
     return (
@@ -26,10 +26,15 @@ function App() {
   } else {
     return (
       <div>
-        { !isLabelling && <Request wallet={wallet} callback={setLastRequest}/>}
-        { isLabelling && <Label wallet={wallet} callback={setLastRequest} lastRequest={lastRequest}/>}
-        <p/>
-        <button onClick={e => setIsLabelling(prevIsLabelling => !prevIsLabelling)}>Toggle Mode</button>
+        { mode === "request" && <Request wallet={wallet} />}
+        { mode === "label" && <Label wallet={wallet} />}
+        { mode === "display" && <Display wallet={wallet} />}
+        { mode === "" && modes.map(e => (
+          <div key={e}>
+            <p/>
+            <button key={e} onClick={() => setMode(e)}>{e.toUpperCase()}</button>
+          </div>
+        ))}
       </div>
     );
   }

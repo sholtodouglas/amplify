@@ -1,12 +1,12 @@
 [programs.localnet]
-amplify = "6tdSxHkjBn6Da6PuF8snm1jeVtyXk67G5SFqNCxxK1B7"
+amplify = "EUoqiCTFCMHGdZ9RM6BDRXo18Cn9Dh4DtxvnNgSrQ5ZY"
 
 [registry]
 url = "https://anchor.projectserum.com"
 
 [provider]
 cluster = "localnet"
-wallet = "/home/sholto/.config/solana/id.json"
+wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "mocha -t 1000000 tests/"

@@ -50,8 +50,6 @@ function Request(props) {
       const account = await program.account.requestAccount.fetch(request.publicKey);
       console.log('account: ', account);
       setImage('');
-      setCategories('');
-      props.callback({publicKey: request.publicKey, account: account});
     } catch (err) {
       console.log("Transaction error: ", err);
     }
