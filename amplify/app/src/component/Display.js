@@ -34,7 +34,7 @@ function Display(props) {
       programID,
       {
         filters: [
-          { dataSize: 1000 },
+          { dataSize: 10000 },
           { memcmp: {bytes: provider.wallet.publicKey.toBase58(), offset: 8} },
         ],
         dataSlice: {length: 0, offset: 0}

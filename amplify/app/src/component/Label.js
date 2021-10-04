@@ -11,9 +11,8 @@ const opts = {
 const programID = new PublicKey(idl.metadata.address);
 
 function Label(props) {
-  const [task, setTask] = React.useState(undefined)
+  const [task, setTask] = React.useState(undefined);
 
-  console.log(idl)
   async function getProvider() {
     /* create the provider and return it to the caller */
     /* network set to local network for now */
@@ -30,29 +29,24 @@ function Label(props) {
     const provider = await getProvider();
     const program = new Program(idl, programID, provider);
     
-    const allLinkedAccounts = await provider.connection.getProgramAccounts(
+    const accounts = await provider.connection.getProgramAccounts(
       programID,
       {
         filters: [
-          {dataSize: 1000}
+          { dataSize: 10000 },                    // filters for request accounts
+          { memcmp: { bytes: "1", offset: 44 } }, // filters for unlabelled images
         ],
         dataSlice: {length: 0, offset: 0}
       });
 
-    for (const acct of allLinkedAccounts) {
-      const account = await program.account.requestAccount.fetch(acct.pubkey);
-      //TODO all accounts should have a 'type' (labeller or request) so that we can filter
-
-      if (account.label == null) { // TODO and my labeller rating > account.minRating
-        // not yet labelled, therefore fill it out
-        setTask({pubkey: acct.pubkey, account: account})
-        return;
-      }
+    for (const a of accounts) {
+      const account = await program.account.requestAccount.fetch(a.pubkey);
+      setTask({pubkey: a.pubkey, account: account})
+      return;
     }
 
     // Else no tasks to label
-    setTask(undefined)
-
+    setTask(undefined);
   }
 
   async function label(category) {
@@ -83,7 +77,6 @@ function Label(props) {
   return (
     <div className="Label">
       <h2>Label Data</h2>
-      <button onClick={query}>Query</button>
       <img
         src={task ? task.account.image : ''}
         alt=''
@@ -92,7 +85,7 @@ function Label(props) {
         height="200px"
       />
       <p/>
-      {task && task.account.categories.split(',').map(
+      {task && task.account.labelSchema.split(',').map(
         e => (
           <button key={e} onClick={e => label(e.target.innerHTML)}>{e}</button>
         )

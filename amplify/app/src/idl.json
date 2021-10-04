@@ -27,7 +27,7 @@
           "type": "string"
         },
         {
-          "name": "categories",
+          "name": "labelSchema",
           "type": "string"
         },
         {
@@ -69,14 +69,6 @@
             "type": "publicKey"
           },
           {
-            "name": "image",
-            "type": "string"
-          },
-          {
-            "name": "categories",
-            "type": "string"
-          },
-          {
             "name": "minRating",
             "type": "u32"
           },
@@ -85,6 +77,14 @@
             "type": {
               "option": "string"
             }
+          },
+          {
+            "name": "image",
+            "type": "string"
+          },
+          {
+            "name": "labelSchema",
+            "type": "string"
           }
         ]
       }

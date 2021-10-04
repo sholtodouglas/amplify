@@ -12,7 +12,7 @@ const programID = new PublicKey(idl.metadata.address);
 
 function Request(props) {
   const [image, setImage] = useState('');
-  const [categories, setCategories] = useState('');
+  const [label_schema, setLabelSchema] = useState('');
   const [min_rating, setMinRating] = useState(0);
 
   async function getProvider() {
@@ -34,9 +34,9 @@ function Request(props) {
 
     try {
       await program.rpc.request(
-        image,
-        categories,
-        Math.floor(parseFloat(min_rating) * 1e8) >>> 0,
+        image,        // URL string
+        label_schema, // Stringified JSON
+        Math.floor(parseFloat(min_rating) * 1e4) >>> 0,
         {
           accounts: {
             request: request.publicKey,
@@ -71,11 +71,11 @@ function Request(props) {
         onChange={e => setImage(e.target.value)}
         value={image}
       />
-      <h4>Categories:</h4>
+      <h4>Label Schema:</h4>
       <input
-        placeholder="e.g. dog,cat,bird"
-        onChange={e => setCategories(e.target.value)}
-        value={categories}
+        placeholder=""
+        onChange={e => setLabelSchema(e.target.value)}
+        value={label_schema}
       />
       <h4>Minimum Rating:</h4>
       <output>{min_rating}</output><p/>
