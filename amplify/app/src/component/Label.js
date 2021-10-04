@@ -27,13 +27,10 @@ function Label(props) {
   }
 
   async function query() {
-    // Comms set up
     const provider = await getProvider();
     const program = new Program(idl, programID, provider);
-    const network = "http://127.0.0.1:8899";
-    const connection = new Connection(network, opts.preflightCommitment);
     
-    const allLinkedAccounts = await connection.getProgramAccounts(
+    const allLinkedAccounts = await provider.connection.getProgramAccounts(
       programID,
       {
         filters: [

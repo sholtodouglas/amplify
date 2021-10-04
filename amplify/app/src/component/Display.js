@@ -29,10 +29,8 @@ function Display(props) {
     // Comms set up
     const provider = await getProvider();
     const program = new Program(idl, programID, provider);
-    const network = "http://127.0.0.1:8899";
-    const connection = new Connection(network, opts.preflightCommitment);
     
-    const accounts = await connection.getProgramAccounts(
+    const accounts = await provider.connection.getProgramAccounts(
       programID,
       {
         filters: [
