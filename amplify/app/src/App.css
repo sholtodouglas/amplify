@@ -41,3 +41,107 @@ button {
   display: block;
   margin:auto;
 }
+
+.labeller-space-holder {
+  width: 100vw;
+  height: 100vh;
+}
+
+.labeller-container {
+  max-width: 70vw;
+  min-height: 10rem;
+  max-height: 40rem;
+  margin: 5rem auto;
+  aspect-ratio: 16/9;
+  display: flex;
+  justify-content: center;
+  /* border: solid 1px black; */
+  position: relative;
+}
+
+.labeller-space {
+  width: 100%;
+  height: fit-content;
+  position: relative;
+  display: flex;
+  margin: auto;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* user-select: none; */
+}
+
+.labeller-space img {
+  /* object-fit: contain; */
+  width: 100%;
+  height: 100%;
+}
+
+.labeller-rectangle {
+  position: absolute;
+  background: red;
+  /* top: 5rem;
+  left: 5rem; */
+  width: 10rem;
+  height: 10rem;
+  background: red;
+  opacity: 0.3;
+  user-select: none;
+}
+
+.labelled {
+  background: rgb(16, 171, 255);
+}
+
+.labeller-rectangle .resizer {
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 1rem;
+  border: 0.1rem solid black;
+  background: white;
+}
+
+.labeller-rectangle .top-left-resizer {
+  top: 0;
+  left: 0;
+  transform: translate(-0.5rem, -0.5rem);
+}
+
+.labeller-rectangle .top-right-resizer {
+  top: 0;
+  right: 0;
+  transform: translate(0.5rem, -0.5rem);
+}
+
+.labeller-rectangle .bottom-left-resizer {
+  bottom: 0;
+  left: 0;
+  transform: translate(-0.5rem, 0.5rem);
+}
+
+.labeller-rectangle .bottom-right-resizer {
+  bottom: 0;
+  right: 0;
+  transform: translate(0.5rem, 0.5rem);
+}
+
+.label-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 15rem;
+  border: solid 2px #afafaf;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin: 0 auto;
+  background: #e8e8e8;
+}
+
+.hide {
+  display: none;
+}
+
+.finish-labelling {
+  position: absolute;
+  bottom: -1rem;
+  transform: translateY(100%);
+}

@@ -9,11 +9,15 @@ import { getPhantomWallet } from '@solana/wallet-adapter-wallets';
 import { useWallet, WalletProvider, ConnectionProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider, WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
+
+
+import "./App.css";
+
+
 const wallets = [ getPhantomWallet() ]
 
 function App() {
   const [mode, setMode] = useState("");
-
   const wallet = useWallet();
   const modes = ["request", "label", "display"];
 
