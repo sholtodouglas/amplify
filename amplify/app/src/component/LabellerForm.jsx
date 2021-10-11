@@ -76,7 +76,6 @@ export function LabellerForm({
 
   const createForm = () => {
     const formElements = [];
-    console.log('shc', schema)
     for (const field of schema) {
       const {
         label,

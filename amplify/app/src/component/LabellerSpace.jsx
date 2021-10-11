@@ -51,7 +51,7 @@ function rectanglesReducer(state, action) {
   }
 }
 
-export function LabellerSpace({ src, alt, schema, appDispatch, taskPubKey, wallet}) {
+export function LabellerSpace({ src, alt, schema, update_fn, appDispatch, taskPubKey, wallet}) {
   const imgRef = useRef(null);
   const labellerFormRef = useRef(null);
 
@@ -148,8 +148,8 @@ export function LabellerSpace({ src, alt, schema, appDispatch, taskPubKey, walle
       filteredRect.labels = rect.labels
       return filteredRect
     })
-
-    appDispatch({type:"next", payload: {'wallet': wallet, 'id': taskPubKey, 'data': data}})
+    update_fn({type:"next", payload: {'wallet': wallet, 'id': taskPubKey, 'data': data}})
+    // appDispatch({type:"next", payload: {'wallet': wallet, 'id': taskPubKey, 'data': data}})
     dispatch({type:"deleteAll"})
   };
 

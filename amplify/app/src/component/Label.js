@@ -5,6 +5,7 @@ import { Program, Provider, web3 } from '@project-serum/anchor';
 import idl from '../idl.json';
 import { useReducer} from "react";
 import { LabellerSpace } from "./LabellerSpace";
+import { set } from "@project-serum/anchor/dist/cjs/utils/features";
 
 const { SystemProgram } = web3;
 const opts = {
@@ -70,14 +71,16 @@ async function query(wallet) {
   for (const a of accounts) {
     const account = await program.account.requestAccount.fetch(a.pubkey);
     
-    return {
-      img: account.image,
+    let r = {
+      image: account.image,
       schema: testSchema,
       pubkey: a.pubkey
     }
+    console.log('----',r)
+    return r
   }
   return {
-    img: "",
+    image: "",
     schema: testSchema,
     pubkey: ""
   }
@@ -89,39 +92,66 @@ async function appReducer(state, action) {
   const { type, payload } = action;
   console.log('querying')
   let info = await query(payload['wallet'])
-  console.log(info)
+  
   switch (type){
     case "set":
-      return info
+      console.log('set', info)
+      return Object.assign({}, state, {                 // <- NB the {}!
+        image: info.image,
+      })
     case "next":
       label(payload['wallet'], 'stuff', payload['pubkey'])
+      console.log('next', info)
       return info
   }
 }
 
 
 function Label(props) {
-  const [task, setTask] = React.useState(undefined);
-
-  const [appState, appDispatch] = useReducer(appReducer, {
-    img: "https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png",
+  const [task, setTask] = React.useState({
+    image: "https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png",
     schema: testSchema,
     pubkey: ""
   });
+
+  // const [appState, appDispatch] = useReducer(appReducer, {
+  //   image: "https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png",
+  //   schema: testSchema,
+  //   pubkey: ""
+  // });
+
+  async function label_and_update(wallet, info, pubkey) {
+      label(wallet, info, pubkey)
+      let response = await query(props.wallet)
+      setTask(response)
+  }
   
-  React.useEffect(() => { appDispatch({type:"set", payload: {'wallet': props.wallet}}) ; }, []);
-  console.log(appState)
-  if (appState.image == undefined) {
-    return <div>appState undefined</div>
+
+
+  React.useEffect(() => {
+    async function fetchMyAPI() {
+      
+    }
+
+    fetchMyAPI()
+  }, [])
+  // React.useEffect(() => { appDispatch({type:"set", payload: {'wallet': props.wallet}}) ; }, []);
+  console.log('t', task)
+
+  if (task.image == undefined) {
+    console.log('undef', task)
+    return <div>Undefined</div>
   } else {
+    console.log('task', task)
   return (
     <div className="Label">
       <h2>Label Data</h2>
 
       <LabellerSpace
-        schema={appState.schema == undefined ? appState.schema : [] }
-        src={appState.image ? appState.image : ''}
-        appDispatch={appDispatch}
+        schema={task.schema == testSchema ? task.schema : [] }
+        src={task.image}
+        update_fn={label_and_update}
+        appDispatch={undefined}
         taskPubKey = {task ? task.pubkey : ''}
         wallet = {props.wallet}
       />
