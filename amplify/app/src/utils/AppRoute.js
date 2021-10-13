@@ -8,16 +8,31 @@ const AppRoute = ({
 }) => {
 
   Layout = (Layout === undefined) ? props => (<React.Fragment>{props.children}</React.Fragment>) : Layout;
+  console.log(rest.wallet)
+  if (rest.wallet == undefined){
+    return (
+      <Route
+        {...rest}
+        render={props => (
+          <Layout>
+            <Component {...props} />
+          </Layout>
+        )} />
+    );
+    
+  } else {
+    return (
+      <Route
+        {...rest}
+        render={props => (
+          <Layout>
+            <Component {...props} wallet={rest.wallet}/>
+          </Layout>
+        )} />
+    );
 
-  return (
-    <Route
-      {...rest}
-      render={props => (
-        <Layout>
-          <Component {...props} />
-        </Layout>
-      )} />
-  );
+  }
+  
 }
 
 export default AppRoute;

@@ -62,7 +62,7 @@ function App() {
           <Switch>
             <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
             <AppRoute exact path="/secondary" component={Label} layout={LayoutDefault} wallet={wallet}/>
-            <AppRoute exact path="/request" component={Request} />
+            <AppRoute exact path="/request" component={Request} wallet={wallet}/>
             {/* <AppRoute exact path="/secondary" render={(props) => <Label {...props} wallet={wallet} />} /> */}
             {/* <AppRoute exact path="/secondary" component={Secondary} layout={LayoutAlternative} /> */}
             <AppRoute exact path="/login" component={Login} layout={LayoutSignin} />

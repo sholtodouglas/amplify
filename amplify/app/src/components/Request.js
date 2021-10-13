@@ -15,6 +15,8 @@ function Request(props) {
   const [label_schema, setLabelSchema] = useState('');
   const [min_rating, setMinRating] = useState(0);
 
+  console.log(props)
+
   async function getProvider() {
     /* create the provider and return it to the caller */
     /* network set to local network for now */
@@ -31,6 +33,7 @@ function Request(props) {
     const provider = await getProvider();
     const program = new Program(idl, programID, provider);
     const request = Keypair.generate();
+
 
     try {
       await program.rpc.request(
