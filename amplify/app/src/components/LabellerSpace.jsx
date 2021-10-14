@@ -8,6 +8,7 @@ import React, {
 import { getId } from "../utilities/id";
 import { Rectangle } from "./Rectangle";
 import { LabellerForm } from "./LabellerForm";
+import { LabellerList } from "./LabellerList";
 
 function rectanglesReducer(state, action) {
   // console.log(action);
@@ -21,6 +22,7 @@ function rectanglesReducer(state, action) {
         selected: false,
         initialResizingMouseEvent: payload.initialResizingMouseEvent,
         labels: payload.labels || {},
+        initialResizing: payload.initialResizing,
       };
       return [...state, newRectangle];
     case "update":
@@ -39,6 +41,9 @@ function rectanglesReducer(state, action) {
           if (payload.labels !== null) {
             rectangle.labels = { ...rectangle.labels, ...payload.labels };
           }
+          if (payload.initialResizing !== undefined) {
+            rectangle.initialResizing = payload.initialResizing
+          }
         }
         return rectangle;
       });
@@ -56,13 +61,15 @@ export function LabellerSpace({ src, alt, schema, update_fn, appDispatch, taskPu
   const labellerFormRef = useRef(null);
 
   const [rectangles, dispatch] = useReducer(rectanglesReducer, []);
-  const [imageAspectRatio, setImageAspectRatio] = useState(16 / 9);
-  console.log(src, 'src')
+  const [imageAspectRatio, setImageAspectRatio] = useState(1);
+  const [containerAspectRatio, setContainerAspectRatio] = useState(1)
+
   const handleImageOnLoad = (e) => {
     const element = e.target;
     const aspectRatio = element.naturalWidth / element.naturalHeight;
     setImageAspectRatio(aspectRatio);
   };
+
 
   // Make a new rectangle when the image is clicked on
   const handleImgMouseDown = useCallback((e) => {
@@ -79,7 +86,7 @@ export function LabellerSpace({ src, alt, schema, update_fn, appDispatch, taskPu
     const initialX = ((e.pageX - imgLeft) / imgWidth) * 100;
     const initialY = ((e.pageY - imgTop) / imgHeight) * 100;
 
-    const newRectangleId = getId(8);
+    const newRectangleId = getId(5);
 
     // Use the initial mouse point to make a new rectangle
     dispatch({
@@ -94,12 +101,17 @@ export function LabellerSpace({ src, alt, schema, update_fn, appDispatch, taskPu
         },
         initialResizingMouseEvent: e,
         labels: {},
+        initialResizing: true,
       },
     });
   }, []);
 
   useEffect(() => {
     window.test = dispatch;
+    window.addEventListener('resize', () => {
+      const dimensions = document.querySelector(".labeller-container").getBoundingClientRect()
+      setContainerAspectRatio(dimensions.width / dimensions.height)
+    });
   }, []);
 
   const getLabellerForm = () => {
@@ -155,39 +167,48 @@ export function LabellerSpace({ src, alt, schema, update_fn, appDispatch, taskPu
 
   return (
     <>
-      <div className="labeller-container">
-        <div
-          className="labeller-space"
-          style={{
-            width: imageAspectRatio > 16 / 9 ? "100%" : "fit-content",
-            height: imageAspectRatio > 16 / 9 ? "fit-content" : "100%",
-          }}
-        >
-          {rectangles.map((r) => (
-            <Rectangle
-              key={r.id}
-              {...r}
-              imgRef={imgRef}
-              dispatch={dispatch}
-              labellerFormRef={labellerFormRef}
-            />
-          ))}
 
-          <img
-            onLoad={handleImageOnLoad}
-            onMouseDown={handleImgMouseDown}
-            draggable={false}
-            src={src}
-            alt={alt}
-            ref={imgRef}
-          />
+      <div className="labeller-wrapper">
+        <div className="labeller-container">
+          <div
+            className="labeller-space"
+            style={{
+              width: imageAspectRatio > containerAspectRatio ? "100%" : "auto",
+              height: imageAspectRatio > containerAspectRatio ? "auto" : "100%",
+            }}
+          >
+            {rectangles.map((r) => (
+              <Rectangle
+                key={r.id}
+                {...r}
+                imgRef={imgRef}
+                dispatch={dispatch}
+                labellerFormRef={labellerFormRef}
+              />
+            ))}
+
+            <img
+              onLoad={handleImageOnLoad}
+              onMouseDown={handleImgMouseDown}
+              draggable={false}
+              src={src}
+              alt={alt}
+              ref={imgRef}
+            />
+          </div>
+          <button className="finish-labelling" onClick={finishLabelling}>
+            Finish Labelling
+          </button>
         </div>
-        <button className="finish-labelling" onClick={finishLabelling}>
-          Finish Labelling
-        </button>
+
+        <LabellerList rectangles={rectangles} dispatch={dispatch} schema={schema}/>
+
+
       </div>
 
-      {getLabellerForm()}
+
+
+      {/* {getLabellerForm()} */}
     </>
   );
 }

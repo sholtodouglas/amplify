@@ -113,7 +113,7 @@ export function Rectangle({
       } else {
         dispatch({
           type: "update",
-          payload: { id, selected: true },
+          payload: { id, selected: true, initialResizing: false },
         });
       }
     };
@@ -270,15 +270,29 @@ export function Rectangle({
       if (e.composedPath().includes(labellerFormRef.current)) return;
       // Checks if the rectangle or resizers were clicked
       const rectangleClicked = allRefs.find((ref) => ref.current === e.target);
+
+      for (const el of e.composedPath()) {
+        if (el.dataset && el.dataset.id === id) return
+
+      }
+
       if (!rectangleClicked) {
         dispatch({ type: "update", payload: { id, selected: false } });
       }
+
+
     };
 
     const handleDelete = (e) => {
       if (!selectedRef.current) return;
       // Prevents delete if we're typing in the form
       if (e.composedPath().includes(labellerFormRef.current)) return;
+
+      for (const el of e.composedPath()) {
+        if (el.dataset && el.dataset.id === id) return
+
+      }
+
       if (e.key === "Backspace" || e.key === "Delete") {
         dispatch({ type: "delete", payload: { id } });
       }
@@ -307,6 +321,7 @@ export function Rectangle({
       }}
       onMouseDown={handleRectangleMouseDown}
     >
+      <div className="rectangle-id">{id}</div>
       <div
         key={`${id}-resizer-top-left`}
         className="resizer top-left-resizer"

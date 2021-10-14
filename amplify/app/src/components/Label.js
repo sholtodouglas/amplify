@@ -1,5 +1,4 @@
 import React from "react";
-import './Label.css';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { Program, Provider, web3 } from '@project-serum/anchor';
 import idl from '../idl.json';
@@ -18,13 +17,19 @@ const testSchema = [
     label: "Question",
     key: "question",
     type: "text",
-  }
+  },
+  {
+    label: "Mark",
+    key: "mark",
+    type: "number",
+    attributes: {min: 5, max:10}
+  },
 ];
 
 async function getProvider(wallet) {
   /* create the provider and return it to the caller */
   /* network set to local network for now */
-  const network = "http://127.0.0.1:8899";
+  const network = "http://192.168.1.206:8899";
   const connection = new Connection(network, opts.preflightCommitment);
 
   const provider = new Provider(
@@ -57,7 +62,7 @@ async function label(wallet, info, pubkey) {
 async function query(wallet) {
   const provider = await getProvider(wallet);
   const program = new Program(idl, programID, provider);
-  
+
   const accounts = await provider.connection.getProgramAccounts(
     programID,
     {
@@ -70,7 +75,7 @@ async function query(wallet) {
 
   for (const a of accounts) {
     const account = await program.account.requestAccount.fetch(a.pubkey);
-    
+
     let r = {
       image: account.image,
       schema: testSchema,
@@ -88,11 +93,11 @@ async function query(wallet) {
 
 
 async function appReducer(state, action) {
-  
+
   const { type, payload } = action;
   console.log('querying')
   let info = await query(payload['wallet'])
-  
+
   switch (type){
     case "set":
       console.log('set', info)
@@ -125,12 +130,12 @@ function Label(props) {
       let response = await query(props.wallet)
       setTask(response)
   }
-  
+
 
 
   React.useEffect(() => {
     async function fetchMyAPI() {
-      
+
     }
 
     fetchMyAPI()
@@ -145,8 +150,6 @@ function Label(props) {
     console.log('task', task)
   return (
     <div className="Label">
-      <h2>Label Data</h2>
-
       <LabellerSpace
         schema={task.schema == testSchema ? task.schema : [] }
         src={task.image}
@@ -155,7 +158,6 @@ function Label(props) {
         taskPubKey = {task ? task.pubkey : ''}
         wallet = {props.wallet}
       />
-      <p/>
     </div>
   );
 }

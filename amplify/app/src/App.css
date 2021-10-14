@@ -48,15 +48,20 @@ button {
 }
 
 .labeller-container {
-  max-width: 70vw;
-  min-height: 10rem;
-  max-height: 40rem;
-  margin: 5rem auto;
-  aspect-ratio: 16/9;
-  display: flex;
-  justify-content: center;
-  /* border: solid 1px black; */
-  position: relative;
+    /* max-width: 70vw; */
+    /* min-height: 10rem; */
+    /* max-height: 40rem; */
+    /* margin: 5rem auto; */
+    /* aspect-ratio: 16/9; */
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    border: 1px solid;
+    border-radius: 10px;
+    margin-right: 0.5rem;
+    overflow: hidden;
 }
 
 .labeller-space {
@@ -88,9 +93,6 @@ button {
   user-select: none;
 }
 
-.labelled {
-  background: rgb(16, 171, 255);
-}
 
 .labeller-rectangle .resizer {
   position: absolute;
@@ -129,11 +131,11 @@ button {
   display: flex;
   flex-direction: column;
   max-width: 15rem;
-  border: solid 2px #afafaf;
+  /* border: solid 2px #afafaf; */
   padding: 1rem;
   border-radius: 1rem;
   margin: 0 auto;
-  background: #e8e8e8;
+  /* background: #e8e8e8; */
 }
 
 .hide {
@@ -144,4 +146,92 @@ button {
   position: absolute;
   bottom: -1rem;
   transform: translateY(100%);
+}
+
+.labeller-list {
+  height: 100%;
+  width: 20vw;
+  max-width: 20rem;
+  min-width: 13rem;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.labeller-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem auto;
+  height: 70vh;
+  max-width: 70vw;
+}
+
+.Label {
+  text-align: center;
+  padding-top: 80px;
+}
+
+button {
+  display: block;
+  margin: auto;
+  min-width: 200px;
+}
+
+.labeller-list-item-status {
+  width: 5px;
+  background: red;
+  height: 50%;
+  margin: auto 0;
+  margin-left: 0.5rem;
+}
+
+.labeller-list-item-title {
+  margin: auto 1rem;
+}
+
+.labeller-list-item {
+  /* height: 2rem; */
+  /* width: 100%; */
+  background: #313131;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.labeller-list-item-header {
+  display: flex;
+  height: 2rem;
+}
+
+.labeller-list-item-holder {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+input {
+  background: none;
+  border-radius: 3px;
+  border: solid 1px;
+  margin: 5px 0;
+}
+
+label {
+  text-align: left;
+}
+
+.labelled {
+  background: rgb(16, 171, 255);
+}
+
+.rectangle-id {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 0.9rem;
+  background: white;
+  color: black;
+  padding: 0 0.5rem;
+  border-radius: 10px 0 0 0;
 }

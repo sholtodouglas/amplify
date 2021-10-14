@@ -1,8 +1,7 @@
 export function LabellerForm({
   rectangle,
   schema,
-  forwardRef,
-  displayForm,
+  displayForm=true,
   dispatch,
 }) {
   const makeLabel = (label, key) => {
@@ -135,8 +134,7 @@ export function LabellerForm({
   return (
     <div className="labeling">
       <form
-        className={`label-form ${displayForm ? "" : "hide"}`}
-        ref={forwardRef}
+        className={`label-form ${rectangle.selected ? "" : "hide"}`}
         onSubmit={handleSubmit}
       >
         {createForm()}
