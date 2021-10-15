@@ -84,9 +84,9 @@ class Header extends React.Component {
     );
 
     var sectionStyle = {
-      width: "40%",
-      height: "40%",
-      marginTop: "7%"
+      width: "16%",
+      // height: "40%",
+      // marginTop: "7%"
     };
 
     return (
@@ -120,11 +120,13 @@ class Header extends React.Component {
                       'header-nav',
                       this.state.isActive && 'is-active'
                     )}>
-                  
+
                   <div className="header-nav-inner">
-                  
+
                   <div className="header-nav-left">
-                    <img src = {amp} style={sectionStyle}/>
+                    <a href="/">
+                      <img src = {amp} style={sectionStyle}/>
+                    </a>
                     </div>
                     <ul className={
                       classNames(

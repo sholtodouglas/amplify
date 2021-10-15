@@ -19,7 +19,7 @@ import LayoutDefault from './layouts/LayoutDefault';
 import LayoutAlternative from './layouts/LayoutAlternative';
 import LayoutSignin from './layouts/LayoutSignin';
 
-// Views 
+// Views
 import Home from './views/Home';
 import Secondary from './views/Secondary';
 import Login from './views/Login';
@@ -47,7 +47,7 @@ function App() {
     )
   } else {
     return (
-      <div>
+      <div className="inner-root">
         {/* { mode === "request" && <Request wallet={wallet} />}
         { mode === "label" && <Label wallet={wallet} />}
         { mode === "display" && <Display wallet={wallet} />}

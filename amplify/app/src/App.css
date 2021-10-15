@@ -1,3 +1,9 @@
+.inner-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .App {
   text-align: center;
 }
@@ -48,20 +54,18 @@ button {
 }
 
 .labeller-container {
-    /* max-width: 70vw; */
-    /* min-height: 10rem; */
-    /* max-height: 40rem; */
-    /* margin: 5rem auto; */
-    /* aspect-ratio: 16/9; */
+
     height: 100%;
     flex-grow: 1;
     display: flex;
     justify-content: center;
     position: relative;
-    border: 1px solid;
-    border-radius: 10px;
-    margin-right: 0.5rem;
+    /* border: 1px solid; */
+    border-radius: 5px;
+    margin-right: 2rem;
     overflow: hidden;
+    padding: 1rem;
+    /* background: #1c1d23; */
 }
 
 .labeller-space {
@@ -79,17 +83,17 @@ button {
   /* object-fit: contain; */
   width: 100%;
   height: 100%;
+  border-radius: 5px;
 }
 
 .labeller-rectangle {
   position: absolute;
-  background: red;
   /* top: 5rem;
   left: 5rem; */
   width: 10rem;
   height: 10rem;
-  background: red;
-  opacity: 0.3;
+  background: #ff3b3b4d;
+  border: 3px solid #ff4949;
   user-select: none;
 }
 
@@ -153,22 +157,26 @@ button {
   width: 20vw;
   max-width: 20rem;
   min-width: 13rem;
-  border: 1px solid;
-  border-radius: 10px;
-  padding: 1rem;
+  /* border: 1px solid; */
+  border-radius: 5px;
+  padding: 0 1rem;
+  background: #1c1d23;
+
 }
 
 .labeller-wrapper {
   display: flex;
   justify-content: space-between;
-  margin: 2rem auto;
+  margin: 0 auto;
+  padding: 2rem 0;
   height: 70vh;
   max-width: 70vw;
 }
 
 .Label {
   text-align: center;
-  padding-top: 80px;
+  margin-top: 80px;
+  padding: 1rem 0;
 }
 
 button {
@@ -179,8 +187,8 @@ button {
 
 .labeller-list-item-status {
   width: 5px;
-  background: red;
-  height: 50%;
+  background: #ff3b3b4d;
+  border: 3px solid #ff4949;  height: 50%;
   margin: auto 0;
   margin-left: 0.5rem;
 }
@@ -190,14 +198,15 @@ button {
 }
 
 .labeller-list-item {
-  /* height: 2rem; */
-  /* width: 100%; */
-  background: #313131;
-  margin: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  border-radius: 5px;
+    /* height: 2rem; */
+    /* width: 100%; */
+    /* background: #313131; */
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #3b3b3b;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    /* border-radius: 5px */
 }
 
 .labeller-list-item-header {
@@ -222,7 +231,9 @@ label {
 }
 
 .labelled {
-  background: rgb(16, 171, 255);
+  background: rgb(16 171 255 / 30%);
+  border: solid 3px #67afff;
+
 }
 
 .rectangle-id {
@@ -230,7 +241,7 @@ label {
   right: 0;
   bottom: 0;
   font-size: 0.9rem;
-  background: white;
+  background: #ffffff57;
   color: black;
   padding: 0 0.5rem;
   border-radius: 10px 0 0 0;
