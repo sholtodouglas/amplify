@@ -1,6 +1,6 @@
 import './Request.css';
 import { useState } from 'react';
-import { Connection, PublicKey } from '@solana/web3.js';
+import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { Program, Provider, web3 } from '@project-serum/anchor';
 import idl from '../idl.json';
 
@@ -20,7 +20,8 @@ function Request(props) {
   async function getProvider() {
     /* create the provider and return it to the caller */
     /* network set to local network for now */
-    const network = "http://127.0.0.1:8899";
+    // const network = "http://127.0.0.1:8899";
+    const network = clusterApiUrl("devnet");
     const connection = new Connection(network, opts.preflightCommitment);
 
     const provider = new Provider(
