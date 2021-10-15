@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Logo from './partials/Logo';
-
+import amp from '../../assets/images/green-white.png'
 const propTypes = {
   active: PropTypes.bool,
   navPosition: PropTypes.string,
@@ -83,6 +83,12 @@ class Header extends React.Component {
       className
     );
 
+    var sectionStyle = {
+      width: "40%",
+      height: "40%",
+      marginTop: "7%"
+    };
+
     return (
       <header
         {...props}
@@ -114,7 +120,12 @@ class Header extends React.Component {
                       'header-nav',
                       this.state.isActive && 'is-active'
                     )}>
+                  
                   <div className="header-nav-inner">
+                  
+                  <div className="header-nav-left">
+                    <img src = {amp} style={sectionStyle}/>
+                    </div>
                     <ul className={
                       classNames(
                         'list-reset text-xxs',

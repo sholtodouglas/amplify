@@ -81,6 +81,14 @@
 	}
 }
 
+.header-nav-left {
+	justify-content: flex-start;
+
+	+ .header-nav-right {
+		flex-grow: 0;
+	}
+}
+
 .header-nav-toggle {
 	display: none;
 }

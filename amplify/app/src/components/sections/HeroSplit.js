@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { SectionSplitProps } from '../../utils/SectionProps';
 import Button from '../elements/Button';
+import c from '../../assets/images/c.mp4';
 
 const propTypes = {
   ...SectionSplitProps.types
@@ -64,7 +65,13 @@ class HeroSplit extends React.Component {
         {...props}
         className={outerClasses}
       >
+        <div className="videoContainer" style={inlineVideo}>
+        <video className='videoTag' autoPlay loop muted>
+            <source src={c} type='video/mp4' />
+        </video>
+        </div>
         <div className="container">
+        
           <div className={innerClasses}>
             <div className={splitClasses}>
               <div className="split-item" style={inlineStyle()}>
@@ -89,6 +96,13 @@ class HeroSplit extends React.Component {
     );
   }
 }
+// inline style
+const inlineVideo = {
+  height: '300px',
+  width:'80%',
+  position: 'relative',
+}
+
 
 // inline style
 const inlineCss = {
