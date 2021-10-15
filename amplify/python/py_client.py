@@ -9,6 +9,7 @@ import base64
 import base58
 import asyncio
 
+CLIENT_URL = "http://localhost:8899"
 PROGRAM_ID = PublicKey("2FStxUMjeoPugj3oEYkmqyDMB9UyShhe1uBzHWTFpLdA")
 REQUEST_ACCOUNT_SIZE = 10000
 REQUEST_ACCOUNT_SCHEMA = borsh.schema({
@@ -27,7 +28,7 @@ REQUEST_SCHEMA = borsh.schema({
 })
 
 async def pull(requester_pubkey: str):
-    async with AsyncClient("http://localhost:8899") as client:
+    async with AsyncClient(CLIENT_URL) as client:
         res = await client.get_program_accounts(
             PROGRAM_ID,
             "processed",
@@ -54,7 +55,7 @@ async def push(secret_key: str, image: str, label_schema: str, min_rating: float
     requester = Keypair.from_secret_key(secret_bytes)
     request = Keypair.generate().public_key
 
-    async with AsyncClient("http://localhost:8899") as client:
+    async with AsyncClient(CLIENT_URL) as client:
         blockhash = await client.get_recent_blockhash()
     keys = [
         AccountMeta(request, False, True),             # request
@@ -73,7 +74,7 @@ async def push(secret_key: str, image: str, label_schema: str, min_rating: float
     tx.recent_blockhash = blockhash['result']['value']['blockhash']
     tx.sign(requester)
 
-    async with AsyncClient("http://localhost:8899") as client:
+    async with AsyncClient(CLIENT_URL) as client:
         res = await client.send_transaction(tx, requester)
     print(res)
 
