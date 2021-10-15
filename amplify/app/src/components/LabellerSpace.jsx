@@ -196,12 +196,10 @@ export function LabellerSpace({ src, alt, schema, update_fn, appDispatch, taskPu
               ref={imgRef}
             />
           </div>
-          <button className="finish-labelling" onClick={finishLabelling}>
-            Finish Labelling
-          </button>
+
         </div>
 
-        <LabellerList rectangles={rectangles} dispatch={dispatch} schema={schema}/>
+        <LabellerList rectangles={rectangles} dispatch={dispatch} schema={schema} finishLabelling={finishLabelling}/>
 
 
       </div>

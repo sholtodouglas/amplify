@@ -19,10 +19,36 @@ const testSchema = [
     type: "text",
   },
   {
-    label: "Mark",
-    key: "mark",
+    label: "Difficulty",
+    key: "difficulty",
     type: "number",
-    attributes: {min: 5, max:10}
+    min: 1,
+    max: 10,
+  },
+  {
+    label: "Marks",
+    key: "marks",
+    type: "number",
+    attributes: {
+      min: 1,
+      max: 10,
+    },
+  },
+  {
+    label: "Topic",
+    key: "topic",
+    type: "select",
+    optionGroups: [
+      {
+        label: "abc",
+        options: [
+          { label: "groupOpt1", value: "1" },
+          { label: "groupOpt2", value: "2" },
+          { label: "groupOpt3", value: "3" },
+          { label: "groupOpt4", value: "4" },
+        ],
+      },
+    ],
   },
 ];
 

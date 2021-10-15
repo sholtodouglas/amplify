@@ -134,10 +134,10 @@ class Header extends React.Component {
                         navPosition && `header-nav-${navPosition}`
                       )}>
                       <li>
-                        <Link to="/secondary/" onClick={this.closeMenu}>Secondary page</Link>
+                        <Link to="/secondary/" onClick={this.closeMenu}>Labeller</Link>
                       </li>
                     </ul>
-                    {!hideSignin &&
+                    {false &&
                       <ul
                         className="list-reset header-nav-right"
                       >

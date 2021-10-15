@@ -26,7 +26,7 @@ class HeroSplit extends React.Component {
     const {
       className,
       topOuterDivider,
-      bottomOuterDivider,      
+      bottomOuterDivider,
       topDivider,
       bottomDivider,
       hasBgColor,
@@ -71,7 +71,7 @@ class HeroSplit extends React.Component {
         </video>
         </div>
         <div className="container">
-        
+
           <div className={innerClasses}>
             <div className={splitClasses}>
               <div className="split-item" style={inlineStyle()}>
@@ -99,8 +99,9 @@ class HeroSplit extends React.Component {
 // inline style
 const inlineVideo = {
   height: '300px',
-  width:'80%',
+  width:'100%',
   position: 'relative',
+  "z-index": -2
 }
 
 

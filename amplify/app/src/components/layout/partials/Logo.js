@@ -13,6 +13,8 @@ const Logo = ({
     className
   );
 
+  return null;
+
   return (
     <div
       {...props}
