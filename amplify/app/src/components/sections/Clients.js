@@ -3,6 +3,9 @@ import classNames from 'classnames';
 import { SectionProps } from '../../utils/SectionProps';
 import Image from '../elements/Image';
 
+import gr from '../../assets/images/gr.png';
+import lc from '../../assets/images/lc.png';
+
 const propTypes = {
   ...SectionProps.types
 }
@@ -50,26 +53,27 @@ class Clients extends React.Component {
             className={innerClasses}
           >
             <ul className="list-reset">
-              <li className="reveal-from-top">
-                <Image
-                  src={require('./../../assets/images/clients-01.svg')}
-                  alt="Client 01"
-                  width={124}
-                  height={24} />
-              </li>
-              <li className="reveal-from-bottom" data-reveal-delay="150">
-                <Image
-                  src={require('./../../assets/images/clients-02.svg')}
-                  alt="Client 02"
-                  width={83}
-                  height={30} />
-              </li>
-              <li className="reveal-from-top" data-reveal-delay="300">
+            <li className="reveal-from-top" data-reveal-delay="300">
                 <Image
                   src={require('./../../assets/images/clients-03.svg')}
                   alt="Client 03"
                   width={125}
                   height={39} />
+              </li>
+              <li className="reveal-from-top">
+                <Image
+                  src={gr}
+                  alt="Client 01"
+                  width={250}
+                  height={75} />
+              </li>
+
+              <li className="reveal-from-top">
+                <Image
+                  src={lc}
+                  alt="Client 01"
+                  width={250}
+                  height={24} />
               </li>
               <li className="reveal-from-bottom" data-reveal-delay="450">
                 <Image

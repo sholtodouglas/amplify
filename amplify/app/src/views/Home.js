@@ -31,7 +31,7 @@ class Home extends React.Component {
 
     const genericSection01Header = {
       title: 'What we do',
-      paragraph: 'xx'
+      paragraph: "We've built a fully on-chain market for data labelling (and later, any work) that is 3x cheaper than mechanical turk and far faster than the opaque, enterprise focused specialists where you are directed to'talk to sales'). By cutting out the middle-man, we can access people on demand and at-cost, then iteratively cross-validate across labellers to drive quality. We hope to enable a future where anyone can earn SOL through structured tasks, and anyone can distribute work as easily as spinning up cloud compute. "
     }
 
     return (
@@ -40,26 +40,6 @@ class Home extends React.Component {
         <Clients topDivider bottomDivider />
         <GenericSection topDivider className="center-content">
           <SectionHeader data={genericSection01Header} className="reveal-from-bottom" />
-          <div className="reveal-from-bottom">
-            <a
-              data-video="https://player.vimeo.com/video/174002812"
-              href="#0"
-              aria-controls="video-modal"
-              onClick={this.openModal}
-            >
-              <Image
-                src={require('./../assets/images/video-placeholder.svg')}
-                alt="Video"
-                width={712}
-                height={400} />
-            </a>
-          </div>
-          <Modal
-            id="video-modal"
-            show={this.state.videoModalActive}
-            handleClose={this.closeModal}
-            video="https://player.vimeo.com/video/174002812"
-            videoTag="iframe" />
         </GenericSection>         
         <FeaturesTiles topDivider className="center-content" />
         <Testimonial topDivider />  

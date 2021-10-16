@@ -42,8 +42,8 @@ class HeroSplit extends React.Component {
       'hero section',
       topOuterDivider && 'has-top-divider',
       bottomOuterDivider && 'has-bottom-divider',
-      hasBgColor && 'has-bg-color',
-      invertColor && 'invert-color',
+      // hasBgColor && 'has-bg-color',
+      // invertColor && 'invert-color',/
       className
     );
 
@@ -83,7 +83,7 @@ class HeroSplit extends React.Component {
                    A decentralised market for work
                   </p>
                   <div className="reveal-from-bottom" data-reveal-delay="450">
-                    <Button tag="a" color="primary" href="https://cruip.com/" wideMobile>
+                    <Button tag="a" color="primary" href="https://github.com/sholtodouglas/amplify/tree/main/amplify/python" wideMobile>
                       Get started now
                     </Button>
                   </div>
