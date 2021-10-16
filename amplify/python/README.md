@@ -25,7 +25,7 @@ Creates a label request account.
 * label_schema: Stringified JSON object outlining the the labelling scheme for the image.
 * min_rating: The minimum rating (0-10) a labeller must have to label the image.
 
-##Usage
+## Usage
 
 ```
 import asyncio
