@@ -1,6 +1,6 @@
 # Amplify Python Client
 
-Python client for programatic interaction with amplify on solnet
+Python client for programatic interaction with amplify
 
 ## Client Interface
 
@@ -31,7 +31,7 @@ Creates a label request account.
 import asyncio
 
 asyncio.run(
-    py_client.pull("HZhibWegBNoJbYNsXnTiYMs5HVvWf9k1ut6vMdFc6e1y")
+    pull("HZhibWegBNoJbYNsXnTiYMs5HVvWf9k1ut6vMdFc6e1y")
 )
 ```
 
