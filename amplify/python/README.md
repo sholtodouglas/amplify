@@ -4,18 +4,18 @@ Python client for programatic interaction with amplify on solnet
 
 ## Client Interface
 
-'''
+```
 async pull(requester_pubkey: str) -> List
-'''
+```
 
 Returns a list of dictionaries containing image url, label schema and labels of all requests made by the requester account.
 
 **Parameters**
 * requester_pubkey: Pubkey of requester account to query, as base-58 encoded string.
 
-'''
+```
 async push(secret_key: str, image: str, label_schema: str, min_rating: float)
-'''
+```
 
 Creates a label request account.
 
@@ -27,17 +27,17 @@ Creates a label request account.
 
 ##Usage
 
-'''
+```
 import asyncio
 
 asyncio.run(
     py_client.pull("HZhibWegBNoJbYNsXnTiYMs5HVvWf9k1ut6vMdFc6e1y")
 )
-'''
+```
 
 ## Dependencies
 
-'''
+```
 solana==0.17.0
 borsh-python==0.1.5
-'''
+```
