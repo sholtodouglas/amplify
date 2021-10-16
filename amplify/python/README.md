@@ -31,7 +31,7 @@ Creates a label request account.
 import asyncio
 
 asyncio.run(
-    pull("HZhibWegBNoJbYNsXnTiYMs5HVvWf9k1ut6vMdFc6e1y")
+    accounts = pull("HZhibWegBNoJbYNsXnTiYMs5HVvWf9k1ut6vMdFc6e1y")
 )
 ```
 
