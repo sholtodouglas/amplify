@@ -11,7 +11,7 @@ import Cta from '../components/sections/Cta';
 // import some required elements
 import Image from '../components/elements/Image';
 import Modal from '../components/elements/Modal';
-import { Document } from 'react-pdf'
+import Test from '../components/Test';
 
 class Home extends React.Component {
 
@@ -41,7 +41,8 @@ class Home extends React.Component {
         <Clients topDivider bottomDivider />
         <GenericSection topDivider className="center-content">
           <SectionHeader data={genericSection01Header} className="reveal-from-bottom" />
-          <Document file="../assets/images/amplify.pdf" />
+          <Test/>
+
         </GenericSection>         
         {/* <FeaturesTiles topDivider className="center-content" />
         <Testimonial topDivider />  

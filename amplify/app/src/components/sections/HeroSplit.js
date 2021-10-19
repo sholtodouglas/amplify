@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import { SectionSplitProps } from '../../utils/SectionProps';
 import Button from '../elements/Button';
 import c from '../../assets/images/c.mp4';
+import pdf from '../../assets/images/amplify.pdf'
+import { Document } from 'react-pdf'
 
 const propTypes = {
   ...SectionSplitProps.types
